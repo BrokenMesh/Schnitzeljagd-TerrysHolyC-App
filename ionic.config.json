@@ -1,0 +1,7 @@
+{
+  "name": "Schnitzeljagd-TerrysHolyC-App",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
