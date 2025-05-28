@@ -6,3 +6,8 @@ interface GameState {
     currentLevelIndex: number, 
 }
 
+interface Level {
+    name: string;
+    route: string;
+    bonusTime_sec: number;
+}

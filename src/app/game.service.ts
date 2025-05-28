@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LEVELS } from './levels';
 
 @Injectable({
     providedIn: 'root'
@@ -16,5 +17,11 @@ export class GameService {
         }
     }
 
+    getCurrentLevel(): Level{        
+        if (this.state === undefined) {
+            throw new Error('Cannot access game state before initialization!');
+        }
 
+        return LEVELS[this.state.currentLevelIndex]
+    }
 }
