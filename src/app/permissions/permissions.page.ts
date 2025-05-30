@@ -28,7 +28,6 @@ export class PermissionsPage implements OnInit {
     if (this.username) {
       this.gameService.initGame(this.username);
       const lvlRoute: any = this.gameService.getCurrentLevel().route;
-      console.log(this.gameService.state?.currentLevelIndex)
       this.router.navigate([lvlRoute])
     }
   }

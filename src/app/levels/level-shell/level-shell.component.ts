@@ -20,19 +20,17 @@ export class LevelShellComponent implements OnInit {
   private router = inject(Router)
 
   currentStep = 0;
+
   ngOnInit() {
-    //console.log("shell init local step", this.currentStep, "service step", this.gameService.state?.currentLevelIndex)
-    console.log(this.gameService.getCurrentLevel().name)
     this.levelName = this.gameService.getCurrentLevel().name;
     this.currentStep = this.gameService.state?.currentLevelIndex ?? 1;
     this.currentStep++;
+
     if (this.gameService.lastLevel()) {
       this.buttonName = 'Abschliessen'
     }
-
   }
   onNext() {
-
     this.gameService.nextLevel();
     const lvlRoute: any = this.gameService.getCurrentLevel().route;
     this.router.navigate([lvlRoute]);

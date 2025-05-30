@@ -24,28 +24,35 @@ export class GameService {
 
     getCurrentLevel(): Level {
         if (!this.state) {
+            //not working
+            //on page reload state errors
+            this.resetState();
             this.router.navigate([''])
             //throw new Error('Cannot access game state before initialization!');
         }
+        console.log("Index on Initialize", this.state?.currentLevelIndex)
         return LEVELS[this.state!.currentLevelIndex]
     }
     nextLevel(): void {
         if (!this.lastLevel()) {
-            console.log(this.state?.currentLevelIndex)
             this.state!.currentLevelIndex++;
+            console.log("Index on nextLevel", this.state?.currentLevelIndex)
         }
     }
 
     lastLevel(): boolean {
         if (!this.state) {
-           
+
             throw new Error('Cannot access game state before initialization!');
         }
-        if (this.state?.currentLevelIndex > LEVELS.length - 1) {
+        if (this.state?.currentLevelIndex >= LEVELS.length - 1) {
             return true;
         }
         else {
             return false;
         }
+    }
+    resetState() {
+        this.state = undefined;
     }
 }
