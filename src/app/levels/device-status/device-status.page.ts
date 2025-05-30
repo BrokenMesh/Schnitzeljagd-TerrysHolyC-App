@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon  } from '@ionic/angular/standalone';
+import { LevelShellComponent } from '../level-shell/level-shell.component';
+import { addIcons } from 'ionicons';
+import { navigateOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-device-status',
   templateUrl: './device-status.page.html',
   styleUrls: ['./device-status.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonButton, CommonModule, FormsModule, LevelShellComponent, IonIcon]
 })
 export class DeviceStatusPage implements OnInit {
 
-  constructor() { }
-
+   constructor() {
+    addIcons({ navigateOutline })
+  }
   ngOnInit() {
   }
 

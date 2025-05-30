@@ -17,6 +17,7 @@ export class PermissionsPage implements OnInit {
 
   private gameService = inject(GameService)
   private route = inject(ActivatedRoute);
+  private router = inject(Router)
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -26,6 +27,9 @@ export class PermissionsPage implements OnInit {
   async requestPermissions() {
     if (this.username) {
       this.gameService.initGame(this.username);
+      const lvlRoute: any = this.gameService.getCurrentLevel().route;
+      console.log(this.gameService.state?.currentLevelIndex)
+      this.router.navigate([lvlRoute])
     }
   }
 }

@@ -19,11 +19,19 @@ export class GameService {
         }
     }
 
-    getCurrentLevel(): Level{        
-        if (this.state === undefined) {
+    getCurrentLevel(): Level {
+        if (!this.state) {
             throw new Error('Cannot access game state before initialization!');
         }
 
         return LEVELS[this.state.currentLevelIndex]
+    }
+    nextLevel(): void {
+        if (!this.state) {
+            throw new Error('Cannot access game state before initialization!');
+        }
+        if (this.state?.currentLevelIndex < LEVELS.length -1) {
+            this.state.currentLevelIndex++;
+        }
     }
 }
