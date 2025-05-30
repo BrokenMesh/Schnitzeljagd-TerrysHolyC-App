@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LEVELS } from './levels';
+import { GameState, Level } from './models';
 
 @Injectable({
     providedIn: 'root'
@@ -8,6 +9,7 @@ export class GameService {
     state?: GameState
 
     initGame(username: string) {
+        console.log("out service", username)
         this.state = {
             username: username,
             startTime: new Date(),
