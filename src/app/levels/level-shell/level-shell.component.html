@@ -1,4 +1,4 @@
-<ion-content class="level-shell-content">
+<ion-content id="main-content" class="level-shell-content">
   <div class="level-shell-container">
     <div class="title-container">
       <h1 class="title">{{levelName}}</h1>
@@ -9,7 +9,7 @@
     </div>
 
     <div class="button-container">
-      <ion-button expand="full" color="primary" (click)="onNext()">Weiter</ion-button>
+      <ion-button expand="full" color="primary" (click)="onNext()">{{buttonName}}</ion-button>
     </div>
 
     <div class="stepper-container">
@@ -19,8 +19,7 @@
           <p-step [value]="2"></p-step>
           <p-step [value]="3"></p-step>
           <p-step [value]="4"></p-step>
-          <p-step [value]="5"></p-step>
-          <p-step [value]="6"></p-step>
+
         </p-step-list>
       </p-stepper>
     </div>

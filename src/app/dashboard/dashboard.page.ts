@@ -23,7 +23,6 @@ export class DashboardPage implements OnInit {
   private gameService = inject(GameService);
 
   public async presentAlert() {
-    console.log("cock")
     const alert = await this.alertController.create({
       header: 'Sind sie so guet und gebed sie doch ihre Name ih',
       inputs: [
@@ -38,7 +37,6 @@ export class DashboardPage implements OnInit {
           text: 'Weiter',
           handler: (data) => {
             this.handleAlertData(data);
-            console.log("handler alertpresent")
             return true;
           }
         }
