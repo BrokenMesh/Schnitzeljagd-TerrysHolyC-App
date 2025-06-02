@@ -20,6 +20,7 @@ export class GameService {
             bonusScore: 0,
             currentLevelIndex: 0
         }
+        console.log("State on init", this.state);
     }
 
     getCurrentLevel(): Level {

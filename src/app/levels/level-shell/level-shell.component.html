@@ -1,6 +1,9 @@
 <ion-content id="main-content" class="level-shell-content">
+
   <div class="level-shell-container">
     <div class="title-container">
+      <app-menu-drawer></app-menu-drawer>
+      <ion-button class="menu-btn" (click)="openMenu()">☰</ion-button>
       <h1 class="title">{{levelName}}</h1>
     </div>
 
@@ -19,6 +22,8 @@
           <p-step [value]="2"></p-step>
           <p-step [value]="3"></p-step>
           <p-step [value]="4"></p-step>
+          <p-step [value]="5"></p-step>
+          <p-step [value]="6"></p-step>
 
         </p-step-list>
       </p-stepper>
