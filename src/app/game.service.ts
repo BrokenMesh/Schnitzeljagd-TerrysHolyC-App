@@ -48,11 +48,9 @@ export class GameService {
         if (this.state?.currentLevelIndex >= LEVELS.length - 1) {
             return true;
         }
-        else {
-            return false;
-        }
+        else return false;
     }
     resetState() {
-        this.state = undefined;
+        this.state == undefined;
     }
 }

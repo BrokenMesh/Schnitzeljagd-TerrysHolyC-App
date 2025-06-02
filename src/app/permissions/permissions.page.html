@@ -1,16 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Berechtigungen</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
+  <h1>Berechtigungen</h1>
   <div class="container">
-    <h1>Berechtigungen</h1>
     <div class="box">
       <ion-button>Kamera</ion-button>
       <ion-button>Standort</ion-button>
     </div>
-    <ion-button (click)="requestPermissions()"></ion-button>
+    <ion-button class="next-button" (click)="requestPermissions()">Weiter</ion-button>
   </div>
 </ion-content>
