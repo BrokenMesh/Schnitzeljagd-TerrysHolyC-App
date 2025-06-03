@@ -25,7 +25,7 @@ export class DashboardPage implements OnInit {
   public async presentAlert() {
     
     const alert = await this.alertController.create({
-      header: 'Sind sie so guet und gebed sie doch ihre Name ih',
+      header: 'Name i Gä!!!',
       inputs: [
         {
           name: 'name',

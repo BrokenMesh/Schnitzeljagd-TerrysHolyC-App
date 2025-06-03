@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonMenu, IonLabel, IonList, IonItem, IonButton } from '@ionic/angular/standalone';
 import { MenuController } from '@ionic/angular';
 import { GameService } from '../game.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-drawer',
@@ -12,6 +13,7 @@ import { GameService } from '../game.service';
 export class MenuDrawerComponent {
   @ViewChild(IonMenu) menu!: IonMenu;
   private gameService = inject(GameService)
+  private router = inject(Router)
 
   curMainscore: number = 0;
   curBonusscore: number = 0;
@@ -24,5 +26,10 @@ export class MenuDrawerComponent {
 
   closeMenu() {
     this.menu?.close();
+  }
+  skipLevel(): void {
+    this.gameService.nextLevel()
+    const nxtLvl = this.gameService.getCurrentLevel().route
+    this.router.navigate([nxtLvl])
   }
 }
