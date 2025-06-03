@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonAlert } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { GameService } from '../game.service';
 import { AlertController } from '@ionic/angular';
@@ -11,7 +11,7 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonAlert]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton]
 })
 export class DashboardPage implements OnInit {
 
@@ -25,7 +25,7 @@ export class DashboardPage implements OnInit {
   public async presentAlert() {
     
     const alert = await this.alertController.create({
-      header: 'Sind sie so guet und gebed sie doch ihre Name ih',
+      header: 'Send sie so guet und gebed sie doch ihre Name ih',
       inputs: [
         {
           name: 'name',
