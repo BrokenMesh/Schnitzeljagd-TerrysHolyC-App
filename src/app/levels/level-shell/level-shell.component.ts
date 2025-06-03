@@ -42,7 +42,7 @@ export class LevelShellComponent implements OnInit {
   onNext() {
     this.gameService.nextLevel();
     const lvlRoute: any = this.gameService.getCurrentLevel().route;
-    this.router.navigate([lvlRoute]);
+    this.router.navigateByUrl(lvlRoute, { replaceUrl: true });
   }
 
   openMenu() {
