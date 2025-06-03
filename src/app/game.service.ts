@@ -41,6 +41,7 @@ export class GameService {
         if (!this.lastLevel()) {
             this.state!.currentLevelIndex++;
             this.state!.currentLevelStartTime = new Date();
+            this.setLevelCompleted(false);
             console.log("Index on nextLevel", this.state?.currentLevelIndex)
         }
     }
