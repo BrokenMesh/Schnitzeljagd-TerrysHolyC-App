@@ -1,3 +1,5 @@
+import { Observable } from "rxjs";
+
 export interface GameState {
     username: string,
     startTime: Date,
@@ -5,6 +7,7 @@ export interface GameState {
     bonusScore: number,
     currentLevelIndex: number, 
     currentLevelStartTime: Date,
+    currentLevelCompleted: boolean
 }
 
 export interface Level {

@@ -4,6 +4,8 @@ import { StepperModule } from 'primeng/stepper';
 import { GameService } from 'src/app/game.service';
 import { Router } from '@angular/router';
 import { MenuDrawerComponent } from 'src/app/menu-drawer/menu-drawer.component';
+import { Signal } from '@angular/core';
+
 @Component({
   selector: 'app-level-shell',
   templateUrl: './level-shell.component.html',
@@ -22,10 +24,12 @@ export class LevelShellComponent implements OnInit {
 
   buttonName: string = 'Weiter'
   levelName: string = '';
-  
+
   levelTime: string = '00:00';
 
   currentStep = 0;
+
+  isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   ngOnInit() {
     this.levelName = this.gameService.getCurrentLevel().name;
@@ -37,6 +41,7 @@ export class LevelShellComponent implements OnInit {
     }
 
     this.updateLevelTime();
+
   }
 
   onNext() {
@@ -52,10 +57,10 @@ export class LevelShellComponent implements OnInit {
   updateLevelTime() {
     if (this.gameService.state != undefined) {
       const currenTime = new Date();
-      
+
       const diffMs = new Date(currenTime.getTime() - this.gameService.state!.currentLevelStartTime.getTime());
       this.levelTime = diffMs.toISOString().slice(14, 19);
-      
+
       this.cdr.detectChanges();
     }
 

@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/stan
 import { LevelShellComponent } from '../level-shell/level-shell.component';
 import { Motion } from '@capacitor/motion';
 import { PluginListenerHandle } from '@capacitor/core'
+import { GameService } from 'src/app/game.service';
 
 @Component({
   selector: 'app-sensor',
@@ -16,14 +17,13 @@ import { PluginListenerHandle } from '@capacitor/core'
 export class SensorPage implements OnInit {
 
   accelHandler?: PluginListenerHandle;
-  onComplet = false;
-
-
+  private gameService = inject(GameService)
+  onComplet = this.gameService.state?.currentLevelCompleted;
   async ngOnInit() {
     this.accelHandler = await Motion.addListener('accel', event => {
       const z = event.acceleration?.z;
       if (z < -9) {
-        this.onComplet = true;
+       this.gameService.setLevelCompleted(true);
         this.stopAcceleration();
       }
     })
@@ -33,7 +33,4 @@ export class SensorPage implements OnInit {
       this.accelHandler.remove();
     }
   };
-
-
-
 }
