@@ -1,10 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, AlertController } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { GameService } from '../game.service';
-import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',

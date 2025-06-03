@@ -52,6 +52,7 @@ export class PermissionsPage implements OnInit {
   async checkPermissions() {
     const gr = await Geolocation.checkPermissions();
     this.hasGeoPermission = gr.location === 'granted';
+    
 
     const cr = await Camera.checkPermissions();
     this.hasCamPermission = cr.camera === 'granted';
