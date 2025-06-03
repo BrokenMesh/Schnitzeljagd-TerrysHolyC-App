@@ -3,6 +3,17 @@
   height: 100%;
 }
 
+.menu-btn {
+  left: 5px;
+  top: 12px;
+  position: absolute;
+  justify-content: start;
+  --background: transparent !important;
+  font-size: larger;
+  font-weight: bold;
+  color: white;
+}
+
 .level-shell-content {
   --padding-top: 0;
   --padding-bottom: 0;
