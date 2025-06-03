@@ -1,10 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, AlertController } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { GameService } from '../game.service';
-import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,13 +13,8 @@ import { AlertController } from '@ionic/angular';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton]
 })
 export class DashboardPage implements OnInit {
-
-  constructor(
-    private router: Router,
-    private alertController: AlertController,
-  ) { }
-
-  private gameService = inject(GameService);
+  private router = inject(Router);
+  private alertController = inject(AlertController);
 
   public async presentAlert() {
     
@@ -46,12 +40,14 @@ export class DashboardPage implements OnInit {
 
     await alert.present();
   }
+
   handleAlertData(data: any) {
     const name: string = data.name;
     if (name.trim().length > 0) {
       this.router.navigate(['/permissions'], { queryParams: { username: name.trim() } });
     }
   }
+
   ngOnInit() {
   }
 

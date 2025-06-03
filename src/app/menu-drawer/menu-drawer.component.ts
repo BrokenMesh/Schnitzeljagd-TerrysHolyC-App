@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonMenu, IonLabel, IonList, IonItem, IonButton } from '@ionic/angular/standalone';
-import { MenuController } from '@ionic/angular';
 import { GameService } from '../game.service';
 
 @Component({

@@ -2,9 +2,9 @@
   <h1>Berechtigungen</h1>
   <div class="container">
     <div class="box">
-      <ion-button class="permission-button" (click)="requestCamPermissions()" [disabled]="hasCamPermission === false">Kamera Berechtigungen</ion-button>
-      <ion-button class="permission-button" (click)="requestGeoPermissions()" [disabled]="hasGeoPermission === false">Standort Berechtigungen</ion-button>
-      <ion-button class="next-button" (click)="startGame()" [disabled]="hasCamPermission === true && hasGeoPermission === true">Weiter</ion-button>
+      <ion-button class="permission-button" (click)="requestCamPermissions()" [disabled]="hasCamPermission === true">Kamera Berechtigungen</ion-button>
+      <ion-button class="permission-button" (click)="requestGeoPermissions()" [disabled]="hasGeoPermission === true">Standort Berechtigungen</ion-button>
+      <ion-button class="next-button" (click)="startGame()" [disabled]="hasCamPermission === false || hasGeoPermission === false">Weiter</ion-button>
     </div>
   </div>
 </ion-content>
