@@ -1,4 +1,4 @@
-
+import { Level } from "./models";
 
 export const LEVELS: Level[] = [
     {
