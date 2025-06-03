@@ -4,6 +4,7 @@ export interface GameState {
     mainScore: number,
     bonusScore: number,
     currentLevelIndex: number, 
+    currentLevelStartTime: Date,
 }
 
 export interface Level {

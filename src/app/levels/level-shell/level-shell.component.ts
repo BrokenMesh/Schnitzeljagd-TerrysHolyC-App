@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ViewChild } from '@angular/core';
+import { Component, OnInit, inject, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonMenu, IonMenuButton, IonButtons, IonList, IonItem } from '@ionic/angular/standalone';
 import { StepperModule } from 'primeng/stepper';
 import { GameService } from 'src/app/game.service';
@@ -12,15 +12,18 @@ import { MenuDrawerComponent } from 'src/app/menu-drawer/menu-drawer.component';
   standalone: true,
 })
 export class LevelShellComponent implements OnInit {
-
   @ViewChild(MenuDrawerComponent) menuDrawer!: MenuDrawerComponent;
+
+  gameService = inject(GameService);
+  private router = inject(Router)
+  private cdr = inject(ChangeDetectorRef);
+
   uID = 'main-content-' + Math.random().toString(36).substr(2, 9);
 
   buttonName: string = 'Weiter'
   levelName: string = '';
-
-  public gameService = inject(GameService);
-  private router = inject(Router)
+  
+  levelTime: string = '00:00';
 
   currentStep = 0;
 
@@ -32,13 +35,30 @@ export class LevelShellComponent implements OnInit {
     if (this.gameService.lastLevel()) {
       this.buttonName = 'Abschliessen'
     }
+
+    this.updateLevelTime();
   }
+
   onNext() {
     this.gameService.nextLevel();
     const lvlRoute: any = this.gameService.getCurrentLevel().route;
     this.router.navigate([lvlRoute]);
   }
+
   openMenu() {
     this.menuDrawer.openMenu();
+  }
+
+  updateLevelTime() {
+    if (this.gameService.state != undefined) {
+      const currenTime = new Date();
+      
+      const diffMs = new Date(currenTime.getTime() - this.gameService.state!.currentLevelStartTime.getTime());
+      this.levelTime = diffMs.toISOString().slice(14, 19);
+      
+      this.cdr.detectChanges();
+    }
+
+    setTimeout(this.updateLevelTime, 1000);
   }
 }

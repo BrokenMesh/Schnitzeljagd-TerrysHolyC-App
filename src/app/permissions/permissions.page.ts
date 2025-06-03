@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GameService } from '../game.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { Camera } from '@capacitor/camera';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-permissions',
@@ -51,14 +52,19 @@ export class PermissionsPage implements OnInit {
   }
 
   async checkPermissions() {
-    const gr = await Geolocation.checkPermissions();
-    this.hasGeoPermission = gr.location === 'granted';
-    
+    if (Capacitor.isNativePlatform()) {
+      const gr = await Geolocation.checkPermissions();
+      this.hasGeoPermission = gr.location === 'granted';
 
-    const cr = await Camera.checkPermissions();
-    this.hasCamPermission = cr.camera === 'granted';
+      const cr = await Camera.checkPermissions();
+      this.hasCamPermission = cr.camera === 'granted';
 
-    this.cdr.detectChanges();
+      this.cdr.detectChanges();
+    } 
+    else {
+      this.hasGeoPermission = true;
+      this.hasCamPermission = true;
+    }
   }
 }
 

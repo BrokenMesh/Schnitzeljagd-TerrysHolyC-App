@@ -11,14 +11,16 @@ export class GameService {
     router = inject(Router)
 
     initGame(username: string) {
-        //console.log("out service", username)
+        
         this.state = {
             username: username,
             startTime: new Date(),
             mainScore: 0,
             bonusScore: 0,
-            currentLevelIndex: 0
+            currentLevelIndex: 0,
+            currentLevelStartTime: new Date(),
         }
+
         console.log("State on init", this.state);
     }
 
@@ -34,6 +36,7 @@ export class GameService {
     nextLevel(): void {
         if (!this.lastLevel()) {
             this.state!.currentLevelIndex++;
+            this.state!.currentLevelStartTime = new Date();
             console.log("Index on nextLevel", this.state?.currentLevelIndex)
         }
     }
@@ -48,17 +51,8 @@ export class GameService {
         }
         else return false;
     }
+
     resetState() {
         this.state == undefined;
-    }
-
-    startNextLevel() {
-        if (this.state === undefined) {
-            throw new Error('Cannot access game state before initialization!');
-        }
-
-        this.state.currentLevelIndex++;
-        const l = this.getCurrentLevel();
-        this.router.navigate([l.route]);
     }
 }

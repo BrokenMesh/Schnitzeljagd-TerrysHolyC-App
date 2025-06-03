@@ -79,3 +79,24 @@
 .p-steplist {
   padding-top: 14px;
 }
+
+.levle-title {
+  position: relative;
+}
+
+.levle-title h1 {
+  margin: 20px auto;
+  padding-top: 16px;
+}
+
+.levle-title .menu-btn {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+
+  justify-content: start;
+  --background: transparent !important;
+  font-size: larger;
+  font-weight: bold;
+  color: white;
+}
