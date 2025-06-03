@@ -24,6 +24,7 @@ export class PermissionsPage implements OnInit {
       this.username = params['username'];
     });
   }
+  
   async requestPermissions() {
     if (this.username) {
       this.gameService.initGame(this.username);

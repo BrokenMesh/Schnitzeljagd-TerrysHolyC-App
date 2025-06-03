@@ -23,6 +23,7 @@ export class DashboardPage implements OnInit {
   private gameService = inject(GameService);
 
   public async presentAlert() {
+    
     const alert = await this.alertController.create({
       header: 'Sind sie so guet und gebed sie doch ihre Name ih',
       inputs: [
