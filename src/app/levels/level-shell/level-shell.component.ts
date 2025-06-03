@@ -64,6 +64,6 @@ export class LevelShellComponent implements OnInit {
       this.cdr.detectChanges();
     }
 
-    setTimeout(this.updateLevelTime, 1000);
+    setTimeout(() => this.updateLevelTime(), 1000);
   }
 }
