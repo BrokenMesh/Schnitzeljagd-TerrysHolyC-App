@@ -1,0 +1,40 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: relative;
+}
+
+h1 {
+  top: 0px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+ion-button {
+  --background: #166975;
+  --color: white;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease;
+
+  &.activated {
+    --background: #1DCD9F;
+  }
+}
+.next-button {
+  margin-top: 100px;
+}
