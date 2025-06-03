@@ -1,10 +1,14 @@
 <ion-content id="main-content" class="level-shell-content">
+  <app-menu-drawer></app-menu-drawer>
 
   <div class="level-shell-container">
+
     <div class="title-container">
-      <app-menu-drawer></app-menu-drawer>
-      <ion-button class="menu-btn" (click)="openMenu()">☰</ion-button>
-      <h1 class="title">{{levelName}}</h1>
+      <div class="levle-title">
+        <ion-button class="menu-btn" (click)="openMenu()">☰</ion-button>
+        <h1 class="title">{{levelName}}</h1>
+      </div>
+      <p class="levle-time">{{ levelTime }}</p>
     </div>
 
     <div class="content-container">
@@ -24,7 +28,6 @@
           <p-step [value]="4"></p-step>
           <p-step [value]="5"></p-step>
           <p-step [value]="6"></p-step>
-
         </p-step-list>
       </p-stepper>
     </div>
