@@ -28,17 +28,17 @@ export class PermissionsPage implements OnInit {
       this.username = params['username'];
     });
 
-    this.checkPremissions();
+    this.checkPermissions();
   }
 
   async requestGeoPermissions() {
-    Geolocation.requestPermissions();
-    this.checkPremissions();
+    await Geolocation.requestPermissions();
+    await this.checkPermissions();
   }
 
   async requestCamPermissions() {
-    Camera.requestPermissions(); 
-    this.checkPremissions();
+    await Camera.requestPermissions(); 
+    await this.checkPermissions();
   }
 
   startGame() {
@@ -49,7 +49,7 @@ export class PermissionsPage implements OnInit {
     }
   }
 
-  async checkPremissions() {
+  async checkPermissions() {
     const gr = await Geolocation.checkPermissions();
     this.hasGeoPermission = gr.location === 'granted';
 
