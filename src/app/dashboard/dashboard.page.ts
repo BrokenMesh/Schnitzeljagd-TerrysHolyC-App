@@ -13,13 +13,8 @@ import { GameService } from '../game.service';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton]
 })
 export class DashboardPage implements OnInit {
-
-  constructor(
-    private router: Router,
-    private alertController: AlertController,
-  ) { }
-
-  private gameService = inject(GameService);
+  private router = inject(Router);
+  private alertController = inject(AlertController);
 
   public async presentAlert() {
     
@@ -45,12 +40,14 @@ export class DashboardPage implements OnInit {
 
     await alert.present();
   }
+
   handleAlertData(data: any) {
     const name: string = data.name;
     if (name.trim().length > 0) {
       this.router.navigate(['/permissions'], { queryParams: { username: name.trim() } });
     }
   }
+
   ngOnInit() {
   }
 

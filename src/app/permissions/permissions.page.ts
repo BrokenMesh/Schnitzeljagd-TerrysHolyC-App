@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonButton } from '@ionic/angular/standalone';
@@ -22,6 +22,7 @@ export class PermissionsPage implements OnInit {
   private gameService = inject(GameService)
   private route = inject(ActivatedRoute);
   private router = inject(Router)
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -56,6 +57,8 @@ export class PermissionsPage implements OnInit {
 
     const cr = await Camera.checkPermissions();
     this.hasCamPermission = cr.camera === 'granted';
+
+    this.cdr.detectChanges();
   }
 }
 
