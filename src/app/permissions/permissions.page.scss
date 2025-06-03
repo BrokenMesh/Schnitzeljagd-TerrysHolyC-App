@@ -24,17 +24,19 @@ h1 {
   max-width: 300px;
 }
 
-ion-button {
+.permission-button {
   --background: #166975;
   --color: white;
   width: 100%;
   text-align: center;
   transition: background-color 0.3s ease;
-
-  &.activated {
-    --background: #1DCD9F;
-  }
 }
+
+.permission-button.button-disabled {
+  --background: #40b646;
+  opacity: 0.8;
+}
+
 .next-button {
   margin-top: 100px;
 }
