@@ -9,7 +9,11 @@
     position: relative;
     align-items: center;
 }
-
+.alert-btn {
+    display: flex;
+    flex-direction: column;
+    margin-top: 400px;
+}
 h1 {
     font-size: 50px;
     font-weight: bold;
@@ -17,5 +21,6 @@ h1 {
 }
 
 h2 {
+    margin-top: 150px;
     font-family: 'Lucida Sans';
 }
