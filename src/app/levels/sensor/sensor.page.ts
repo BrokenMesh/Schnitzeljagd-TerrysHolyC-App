@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { LevelShellComponent } from '../level-shell/level-shell.component';
+import { Motion } from '@capacitor/motion';
+import { PluginListenerHandle } from '@capacitor/core'
 
 @Component({
   selector: 'app-sensor',
@@ -13,9 +15,25 @@ import { LevelShellComponent } from '../level-shell/level-shell.component';
 })
 export class SensorPage implements OnInit {
 
-  constructor() { }
+  accelHandler?: PluginListenerHandle;
+  onComplet = false;
 
-  ngOnInit() {
+
+  async ngOnInit() {
+    this.accelHandler = await Motion.addListener('accel', event => {
+      const z = event.acceleration?.z;
+      if (z < -9) {
+        this.onComplet = true;
+        this.stopAcceleration();
+      }
+    })
   }
+  stopAcceleration = () => {
+    if (this.accelHandler) {
+      this.accelHandler.remove();
+    }
+  };
+
+
 
 }
