@@ -1,7 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { LEVELS } from './levels';
 import { GameState, Level } from './models';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
 export class GameService {
     state?: GameState
     router = inject(Router)
+
+    currentLevelCompleted = signal(false);
 
     initGame(username: string) {
         
@@ -19,6 +22,7 @@ export class GameService {
             bonusScore: 0,
             currentLevelIndex: 0,
             currentLevelStartTime: new Date(),
+            currentLevelCompleted: this.currentLevelCompleted()
         }
 
         console.log("State on init", this.state);
@@ -54,5 +58,10 @@ export class GameService {
 
     resetState() {
         this.state == undefined;
+    }
+
+    setLevelCompleted(value: boolean) {
+        this.currentLevelCompleted.set(value);
+        this.state!.currentLevelCompleted = value;
     }
 }
