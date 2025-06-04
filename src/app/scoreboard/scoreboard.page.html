@@ -1,13 +1,30 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>scoreboard</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">scoreboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div style="height: 100px;"></div>
+  <div class="scoreboard">
+      <h2>Scoreboard</h2>
+      <table class="custom-table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Score</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Alice</td>
+          <td>95</td>
+          <td>2025-06-01</td>
+        </tr>
+        <tr>
+          <td>Bob</td>
+          <td>88</td>
+          <td>2025-06-03</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </ion-content>

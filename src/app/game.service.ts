@@ -2,6 +2,8 @@ import { Injectable, inject, signal } from '@angular/core';
 import { LEVELS } from './levels';
 import { GameState, Level } from './models';
 import { Router } from '@angular/router';
+import { ApiService } from './api.service';
+import { Preferences } from '@capacitor/preferences';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,7 +11,9 @@ import { Observable } from 'rxjs';
 })
 export class GameService {
     state?: GameState
+
     router = inject(Router)
+    api = inject(ApiService)
 
     currentLevelCompleted = signal(false);
 
@@ -37,8 +41,8 @@ export class GameService {
         return LEVELS[this.state!.currentLevelIndex]
     }
 
-    nextLevel(): void {
-        if (!this.lastLevel()) {
+    startNextLevel(): void {
+        if (!this.isLastLevel()) {
             this.state!.currentLevelIndex++;
             this.state!.currentLevelStartTime = new Date();
             this.setLevelCompleted(false);
@@ -46,7 +50,7 @@ export class GameService {
         }
     }
 
-    lastLevel(): boolean {
+    isLastLevel(): boolean {
         if (!this.state) {
 
             throw new Error('Cannot access game state before initialization!');
@@ -55,6 +59,16 @@ export class GameService {
             return true;
         }
         else return false;
+    }
+
+    endGame() {
+        this.api.sendUserScore(this.state!);
+        this.resetState();
+
+        Preferences.set({
+            key: this.state!.username,
+            value: JSON.stringify(this.state!)
+        });
     }
 
     resetState() {
@@ -77,5 +91,18 @@ export class GameService {
 
         this.currentLevelCompleted.set(value);
         this.state!.currentLevelCompleted = value;
+    }
+
+    async getScoreboard(): Promise<GameState[]> {
+        let scoreboard: GameState[] = [];
+
+        const keys = await Preferences.keys();
+        for(const key in keys) {
+            const value = await Preferences.get({ key });
+            if (value.value == null) continue;
+            scoreboard.push(JSON.parse(value.value));
+        }
+
+        return scoreboard;
     }
 }
