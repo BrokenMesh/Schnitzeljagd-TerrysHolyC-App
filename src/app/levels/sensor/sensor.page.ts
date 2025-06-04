@@ -18,7 +18,8 @@ export class SensorPage implements OnInit {
 
   accelHandler?: PluginListenerHandle;
   private gameService = inject(GameService)
-  onComplet = this.gameService.state?.currentLevelCompleted;
+  onComplete = this.gameService.state?.currentLevelCompleted;
+  
   async ngOnInit() {
     this.accelHandler = await Motion.addListener('accel', event => {
       const z = event.acceleration?.z;
