@@ -64,7 +64,7 @@ export class DistancePage implements OnInit {
       current.longitude
     )
     this.distanceMoved = distance
-    if (distance <= 10) {
+    if (distance >= 10) {
       this.gameService.setLevelCompleted(true)
     }
 
