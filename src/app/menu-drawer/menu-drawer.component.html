@@ -4,20 +4,15 @@
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content>
+  <ion-content class="menu-content">
     <div class="score-container">
-      <h1>{{curMainscore}}🎖️</h1>
-      <h1>{{curBonusscore}}💩</h1>
+      <h1>{{curMainscore}} 🎖️</h1>
+      <h1>{{curBonusscore}} 💩</h1>
     </div>
 
-
-    <ion-list>
-      <ion-item>
-        <ion-button class="end-btn" (click)="quitGame()">Jagd Beenden</ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-button class="skip-btn" (click)="skipLevel()">Level Überspringen</ion-button>
-      </ion-item>
-    </ion-list>
+    <div class="button-wrapper">
+      <ion-button expand="block" class="menu-button" (click)="quitGame()">Jagd Beenden</ion-button>
+      <ion-button expand="block" class="menu-button" (click)="skipLevel()">Level Überspringen</ion-button>
+    </div>
   </ion-content>
 </ion-menu>

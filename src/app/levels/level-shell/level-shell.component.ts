@@ -67,7 +67,8 @@ export class LevelShellComponent implements OnInit {
 
       this.cdr.detectChanges();
 
-      if (this.gameService.getCurrentLevel().bonusTime_sec >= this.diffMs!.getSeconds()) {
+      if (this.gameService.getCurrentLevel().bonusTime_sec <= this.diffMs!.getSeconds()) {
+        console.log(this.diffMs.getSeconds())
         this.isOvertime = true;
       }
     }

@@ -1,13 +1,24 @@
-.close-btn {
-    font-weight: bold;
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .score-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 16px;
 }
 
-.menu-side-start {
-    margin-top: 30px;
+.button-wrapper {
+  margin-top: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.menu-button {
+  width: 100%;
 }
