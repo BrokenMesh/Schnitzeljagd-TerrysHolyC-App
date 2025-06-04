@@ -8,7 +8,7 @@
         <ion-button class="menu-btn" (click)="openMenu()">☰</ion-button>
         <h1 class="title">{{levelName}}</h1>
       </div>
-      <p class="levle-time">{{ levelTime }}</p>
+      <p [className]="isOvertime == true ? 'overtimer' : 'levle-time'">{{ levelTime }}</p>
     </div>
 
     <div class="content-container">
