@@ -62,6 +62,19 @@ export class GameService {
     }
 
     setLevelCompleted(value: boolean) {
+        if (value === true) {
+            this.state!.mainScore += 1;
+            
+            const l = this.getCurrentLevel();
+            
+            const currenTime = new Date();
+            const diffMs = new Date(currenTime.getTime() - this.state!.currentLevelStartTime.getTime());
+
+            if (diffMs.getSeconds() < l.bonusTime_sec) {
+                this.state!.bonusScore += 1;
+            } 
+        }
+
         this.currentLevelCompleted.set(value);
         this.state!.currentLevelCompleted = value;
     }
