@@ -22,6 +22,7 @@ export class WlanPage implements OnInit {
 
   ngOnInit() {
     Network.addListener('networkStatusChange', status => {
+      console.log(status)
       this.checkWifi(status)
     })
   }
