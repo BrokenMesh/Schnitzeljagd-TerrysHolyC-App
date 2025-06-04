@@ -6,6 +6,7 @@ import { LevelShellComponent } from '../level-shell/level-shell.component';
 import { addIcons } from 'ionicons';
 import { navigateOutline } from 'ionicons/icons';
 import { GameService } from 'src/app/game.service';
+import { Geolocation } from '@capacitor/geolocation';
 
 
 @Component({
@@ -22,5 +23,6 @@ export class GeolocationPage implements OnInit {
   ngOnInit() {
     this.gameService.setLevelCompleted(true);
     addIcons({ navigateOutline })
+    
   }
 }
