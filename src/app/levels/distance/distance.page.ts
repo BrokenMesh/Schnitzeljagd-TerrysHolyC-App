@@ -39,26 +39,26 @@ export class DistancePage implements OnInit {
   };
 
   async updateDistance() {
-    let current: any = 0;
     try {
-      current = await this.getCurrentPosition();
+      const current = await this.getCurrentPosition();
+      
+      const distance = getDistance(
+        this.startPosition!.latitude,
+        this.startPosition!.longitude,
+        current.latitude,
+        current.longitude
+      );
+
+      this.distanceMoved = distance;
+      
+      if (distance >= 10) {
+        this.gameService.setLevelCompleted(true);
+      }
+
+      this.cdr.detectChanges();
     } catch (e) {
       console.log(e)
     }
-
-    const distance = getDistance(
-      this.startPosition!.latitude,
-      this.startPosition!.longitude,
-      current.latitude,
-      current.longitude
-    )
-    this.distanceMoved = distance
-    if (distance >= 10) {
-      this.gameService.setLevelCompleted(true)
-    }
-
-    this.cdr.detectChanges();
-
     if (this.isCompleted() == false) {
       setTimeout(async () => {
         this.updateDistance();

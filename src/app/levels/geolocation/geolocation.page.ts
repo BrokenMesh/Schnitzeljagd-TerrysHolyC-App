@@ -38,21 +38,26 @@ export class GeolocationPage implements OnInit {
   };
 
   async updateDistance() {
-    const current = await this.getCurrentPosition();
+    try {
+      const current = await this.getCurrentPosition();
 
-    const target = {
-      latitude: 47.02749804944801,
-      longitude: 8.300887115703024,
+      const target = {
+        latitude: 47.02749804944801,
+        longitude: 8.300887115703024,
+      };
+
+      const d = getDistance(current.latitude, current.longitude, target.latitude, target.longitude);
+      this.distance = d;
+
+      if (d <= 10) {
+        this.gameService.setLevelCompleted(true);
+      }
+
+      this.cdr.detectChanges();
     }
-
-    const d = getDistance(current.latitude, current.longitude, target.latitude, target.longitude)
-    this.distance = d;
-
-    if (d <= 10) {
-      this.gameService.setLevelCompleted(true)
+    catch (e) {
+      console.log(e);
     }
-
-    this.cdr.detectChanges();
 
     if (this.isCompleted() == false) {
       setTimeout(() => this.updateDistance(), 1000);
