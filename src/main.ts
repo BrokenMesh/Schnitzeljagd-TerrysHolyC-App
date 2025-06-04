@@ -7,6 +7,7 @@ import Aura from '@primeng/themes/aura';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+import { provideHttpClient } from '@angular/common/http';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -18,5 +19,6 @@ bootstrapApplication(AppComponent, {
       }
     }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
+    provideHttpClient()
   ],
 });

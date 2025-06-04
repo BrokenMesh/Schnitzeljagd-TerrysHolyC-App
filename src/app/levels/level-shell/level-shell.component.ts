@@ -36,7 +36,7 @@ export class LevelShellComponent implements OnInit {
     this.currentStep = this.gameService.state?.currentLevelIndex ?? 1;
     this.currentStep++;
 
-    if (this.gameService.lastLevel()) {
+    if (this.gameService.isLastLevel()) {
       this.buttonName = 'Abschliessen'
     }
 
@@ -44,14 +44,15 @@ export class LevelShellComponent implements OnInit {
   }
 
   onNext() {
-    if(this.gameService.lastLevel()) {
+    if(this.gameService.isLastLevel()) {
+      this.gameService.endGame();
       this.router.navigate(['scoreboard'])
       return;
     }
-    this.gameService.nextLevel();
+
+    this.gameService.startNextLevel();
     const lvlRoute: any = this.gameService.getCurrentLevel().route;
     this.router.navigateByUrl(lvlRoute, { skipLocationChange: true });
-    
   }
 
   openMenu() {

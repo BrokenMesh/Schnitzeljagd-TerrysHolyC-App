@@ -33,7 +33,7 @@ export class MenuDrawerComponent {
     this.menu?.close();
   }
   skipLevel(): void {
-    this.gameService.nextLevel()
+    this.gameService.startNextLevel()
     const nxtLvl = this.gameService.getCurrentLevel().route
     this.router.navigate([nxtLvl])
   }
