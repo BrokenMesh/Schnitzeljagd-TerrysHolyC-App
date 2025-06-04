@@ -41,7 +41,6 @@ export class LevelShellComponent implements OnInit {
     }
 
     this.updateLevelTime();
-
   }
 
   onNext() {

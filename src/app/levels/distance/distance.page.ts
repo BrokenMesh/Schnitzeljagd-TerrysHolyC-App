@@ -7,6 +7,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { GameService } from 'src/app/game.service';
 import { Signal } from '@angular/core';
 import { getDistance } from 'src/app/gps';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-distance',
@@ -25,9 +26,13 @@ export class DistancePage implements OnInit {
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   async ngOnInit() {
-    this.startPosition = await this.getCurrentPosition();
-    this.updateDistance();
-
+    if(Capacitor.isNativePlatform()) {
+      this.startPosition = await this.getCurrentPosition();
+      this.updateDistance();
+    } 
+    else {
+      this.gameService.setLevelCompleted(true);
+    }
   }
 
   getCurrentPosition = async () => {
@@ -39,26 +44,26 @@ export class DistancePage implements OnInit {
   };
 
   async updateDistance() {
-    let current: any = 0;
     try {
-      current = await this.getCurrentPosition();
+      const current = await this.getCurrentPosition();
+      
+      const distance = getDistance(
+        this.startPosition!.latitude,
+        this.startPosition!.longitude,
+        current.latitude,
+        current.longitude
+      );
+
+      this.distanceMoved = distance;
+      
+      if (distance >= 10) {
+        this.gameService.setLevelCompleted(true);
+      }
+
+      this.cdr.detectChanges();
     } catch (e) {
       console.log(e)
     }
-
-    const distance = getDistance(
-      this.startPosition!.latitude,
-      this.startPosition!.longitude,
-      current.latitude,
-      current.longitude
-    )
-    this.distanceMoved = distance
-    if (distance >= 10) {
-      this.gameService.setLevelCompleted(true)
-    }
-
-    this.cdr.detectChanges();
-
     if (this.isCompleted() == false) {
       setTimeout(async () => {
         this.updateDistance();

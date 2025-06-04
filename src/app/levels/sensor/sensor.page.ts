@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent } from '@ionic/angular/standalone';
 import { LevelShellComponent } from '../level-shell/level-shell.component';
 import { Motion } from '@capacitor/motion';
-import { PluginListenerHandle } from '@capacitor/core'
+import { Capacitor, PluginListenerHandle } from '@capacitor/core'
 import { GameService } from 'src/app/game.service';
 
 @Component({
@@ -18,7 +18,16 @@ export class SensorPage implements OnInit {
   private gameService = inject(GameService)
   accelHandler?: PluginListenerHandle;
 
-  async ngOnInit() {
+  ngOnInit() {
+    if(Capacitor.isNativePlatform()) {
+      this.startAcceleration()
+    } 
+    else {
+      this.gameService.setLevelCompleted(true);
+    }
+  }
+
+  async startAcceleration() {
     this.accelHandler = await Motion.addListener('accel', event => {
       const z = event.acceleration?.z;
       if (z < -9) {
@@ -28,7 +37,7 @@ export class SensorPage implements OnInit {
     })
   }
 
-  stopAcceleration = () => {
+  stopAcceleration() {
     if (this.accelHandler) {
       this.accelHandler.remove();
     }

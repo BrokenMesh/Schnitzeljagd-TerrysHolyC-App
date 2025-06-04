@@ -7,6 +7,7 @@ import { addIcons } from 'ionicons';
 import { navigateOutline, trendingDown } from 'ionicons/icons';
 import { GameService } from 'src/app/game.service';
 import { Device } from '@capacitor/device';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-device-status',
@@ -21,7 +22,12 @@ export class DeviceStatusPage implements OnInit {
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   ngOnInit() {
-    this.logChargingStatus()
+    if(Capacitor.isNativePlatform()) {
+      this.logChargingStatus()
+    } 
+    else {
+      this.gameService.setLevelCompleted(true);
+    }
   }
 
   logChargingStatus = async () => {
