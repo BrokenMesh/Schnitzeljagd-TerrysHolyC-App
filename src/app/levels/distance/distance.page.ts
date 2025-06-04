@@ -22,16 +22,22 @@ export class DistancePage implements OnInit {
 
   startPosition: { latitude: number; longitude: number } | null = null;
   distanceMoved: number = 0;
+   private watchId: string | null = null;
 
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   async ngOnInit() {
-    if(Capacitor.isNativePlatform()) {
+    if (Capacitor.isNativePlatform()) {
       this.startPosition = await this.getCurrentPosition();
-      this.updateDistance();
-    } 
+      this.startWatchingPosition();
+    }
     else {
       this.gameService.setLevelCompleted(true);
+    }
+  }
+  ngOnDestroy() {
+    if (this.watchId !== null) {
+      Geolocation.clearWatch({ id: this.watchId });
     }
   }
 
@@ -43,31 +49,37 @@ export class DistancePage implements OnInit {
     };
   };
 
-  async updateDistance() {
-    try {
-      const current = await this.getCurrentPosition();
-      
+  async startWatchingPosition() {
+    this.watchId = await Geolocation.watchPosition({}, (position, err) => {
+      if (err) {
+        console.error('Error watching position:', err);
+        return;
+      }
+
+      if (!position || !this.startPosition) return;
+
+      const current = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      };
+
       const distance = getDistance(
-        this.startPosition!.latitude,
-        this.startPosition!.longitude,
+        this.startPosition.latitude,
+        this.startPosition.longitude,
         current.latitude,
         current.longitude
       );
 
       this.distanceMoved = distance;
-      
-      if (distance >= 10) {
+
+      if (distance >= 10 && !this.isCompleted()) {
         this.gameService.setLevelCompleted(true);
+        if (this.watchId !== null) {
+          Geolocation.clearWatch({ id: this.watchId });
+        }
       }
 
       this.cdr.detectChanges();
-    } catch (e) {
-      console.log(e)
-    }
-    if (this.isCompleted() == false) {
-      setTimeout(async () => {
-        this.updateDistance();
-      }, 1000)
-    }
+    });
   }
 }
