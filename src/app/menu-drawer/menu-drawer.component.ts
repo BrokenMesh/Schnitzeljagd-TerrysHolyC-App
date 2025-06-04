@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonMenu, IonLabel, IonList, IonItem, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonMenu, IonList, IonItem, IonButton } from '@ionic/angular/standalone';
 import { GameService } from '../game.service';
 import { Router } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   selector: 'app-menu-drawer',
   templateUrl: './menu-drawer.component.html',
   styleUrls: ['./menu-drawer.component.scss'],
-  imports: [IonContent, IonList, IonMenu, IonItem, IonHeader, IonToolbar, IonTitle, IonLabel, IonButton]
+  imports: [IonContent, IonList, IonMenu, IonItem, IonHeader, IonToolbar, IonTitle, IonButton]
 })
 export class MenuDrawerComponent {
   @ViewChild(IonMenu) menu!: IonMenu;

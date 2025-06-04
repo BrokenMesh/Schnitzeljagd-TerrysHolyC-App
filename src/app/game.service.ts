@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ApiService } from './api.service';
 import { Preferences } from '@capacitor/preferences';
 import { Observable } from 'rxjs';
+import * as uuid from 'uuid';
 
 @Injectable({
     providedIn: 'root'
@@ -18,8 +19,8 @@ export class GameService {
     currentLevelCompleted = signal(false);
 
     initGame(username: string) {
-        
         this.state = {
+            id: uuid.v4(),
             username: username,
             startTime: new Date(),
             mainScore: 0,
@@ -61,14 +62,15 @@ export class GameService {
         else return false;
     }
 
-    endGame() {
+    async endGame() {
         this.api.sendUserScore(this.state!);
-        this.resetState();
-
-        Preferences.set({
-            key: this.state!.username,
+        
+        await Preferences.set({
+            key: this.state!.id,
             value: JSON.stringify(this.state!)
         });
+
+        this.resetState();
     }
 
     resetState() {
@@ -94,15 +96,16 @@ export class GameService {
     }
 
     async getScoreboard(): Promise<GameState[]> {
-        let scoreboard: GameState[] = [];
-
-        const keys = await Preferences.keys();
-        for(const key in keys) {
-            const value = await Preferences.get({ key });
-            if (value.value == null) continue;
-            scoreboard.push(JSON.parse(value.value));
+        const scoreboard: GameState[] = [];
+    
+        const { keys } = await Preferences.keys();
+        for (const key of keys) {
+            const { value } = await Preferences.get({ key });
+            if (value == null) continue;
+            scoreboard.push(JSON.parse(value));
         }
-
-        return scoreboard;
+    
+        return scoreboard.sort((a,b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime());
     }
+    
 }

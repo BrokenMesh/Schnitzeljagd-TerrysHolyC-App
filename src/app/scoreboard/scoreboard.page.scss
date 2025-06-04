@@ -22,3 +22,15 @@
     margin: 20px;
 }
 
+.button-container {
+    position: absolute;
+    width: 100%;
+    bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.score-display {
+    display: flex;
+    justify-content: space-evenly;
+}
