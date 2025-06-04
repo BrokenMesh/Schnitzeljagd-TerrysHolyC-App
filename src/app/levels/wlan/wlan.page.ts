@@ -1,9 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { LevelShellComponent } from "../level-shell/level-shell.component";
 import { GameService } from 'src/app/game.service';
+import { Network } from '@capacitor/network';
+import { ConnectionStatus } from '@capacitor/network';
 
 @Component({
   selector: 'app-wlan',
@@ -13,9 +15,23 @@ import { GameService } from 'src/app/game.service';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LevelShellComponent]
 })
 export class WlanPage implements OnInit {
-  gameService = inject(GameService);
+  private gameService = inject(GameService)
+
+  hasConnected?: boolean;
+  isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   ngOnInit() {
+    Network.addListener('networkStatusChange', status => {
+      this.checkWifi(status)
+    })
     this.gameService.setLevelCompleted(true);
+  }
+  checkWifi(status: ConnectionStatus) {
+    if (status.connected) {
+      this.hasConnected == true;
+    }
+    if (status.connectionType == 'wifi' && this.hasConnected) {
+      this.gameService.setLevelCompleted(true)
+    }
   }
 }
