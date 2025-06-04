@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
 
 export interface GameState {
+    id: string,
     username: string,
     startTime: Date,
     mainScore: number,

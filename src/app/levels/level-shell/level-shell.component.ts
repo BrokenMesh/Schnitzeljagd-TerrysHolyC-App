@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonMenu, IonMenuButton, IonButtons, IonList, IonItem } from '@ionic/angular/standalone';
+import { IonContent, IonButton } from '@ionic/angular/standalone';
 import { StepperModule } from 'primeng/stepper';
 import { GameService } from 'src/app/game.service';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { Signal } from '@angular/core';
   selector: 'app-level-shell',
   templateUrl: './level-shell.component.html',
   styleUrls: ['./level-shell.component.scss'],
-  imports: [IonContent, IonButton, StepperModule, IonMenu, IonMenuButton, IonTitle, IonToolbar, IonHeader, MenuDrawerComponent, IonList, IonItem],
+  imports: [IonContent, IonButton, StepperModule, MenuDrawerComponent],
   standalone: true,
 })
 export class LevelShellComponent implements OnInit {

@@ -13,18 +13,22 @@
         </tr>
       </thead>
       <tbody>
+      @for (s of scoreboard; track s.id) {
         <tr>
-          <td>Alice</td>
-          <td>95</td>
-          <td>2025-06-01</td>
+          <td>{{ s.username }}</td>
+          <td>
+            <div class="score-display">
+              <p>{{s.mainScore}}🎖️</p><p>{{s.bonusScore}}💩</p>
+            </div>
+          </td>
+          <td>{{s.startTime | date: 'dd/MM/yyyy HH:mm' }}</td>
         </tr>
-        <tr>
-          <td>Bob</td>
-          <td>88</td>
-          <td>2025-06-03</td>
-        </tr>
-      </tbody>
+      }
     </table>
+  </div>
+
+  <div class="button-container">
+    <ion-button class="alert-btn" (click)="restartGame()">Nochmal Spielen</ion-button>
   </div>
 
 </ion-content>
