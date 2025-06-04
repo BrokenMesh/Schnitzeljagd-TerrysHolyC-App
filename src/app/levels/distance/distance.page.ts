@@ -38,7 +38,12 @@ export class DistancePage implements OnInit {
   };
 
   async updateDistance() {
-    const current = await this.getCurrentPosition();
+    let current: any = 0;
+    try {
+      current = await this.getCurrentPosition();
+    } catch (e) {
+      console.log(e)
+    }
 
     const distance = getDistance(
       this.startPosition!.latitude,
@@ -46,8 +51,8 @@ export class DistancePage implements OnInit {
       current.latitude,
       current.longitude
     )
-    
-    if (distance <= 10) {
+    this.distanceMoved = distance
+    if (distance >= 10) {
       this.gameService.setLevelCompleted(true)
     }
 
