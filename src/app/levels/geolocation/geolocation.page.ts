@@ -8,6 +8,7 @@ import { navigateOutline } from 'ionicons/icons';
 import { GameService } from 'src/app/game.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { getDistance } from 'src/app/gps';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-geolocation',
@@ -25,8 +26,14 @@ export class GeolocationPage implements OnInit {
   distance: number = 0;
 
   ngOnInit() {
+    if(Capacitor.isNativePlatform()) {
+      this.updateDistance();
+    } 
+    else {
+      this.gameService.setLevelCompleted(true);
+    }
+
     addIcons({ navigateOutline })
-    this.updateDistance();
   }
 
   getCurrentPosition = async () => {

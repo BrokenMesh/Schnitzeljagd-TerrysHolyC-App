@@ -7,6 +7,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { GameService } from 'src/app/game.service';
 import { Signal } from '@angular/core';
 import { getDistance } from 'src/app/gps';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-distance',
@@ -25,9 +26,13 @@ export class DistancePage implements OnInit {
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   async ngOnInit() {
-    this.startPosition = await this.getCurrentPosition();
-    this.updateDistance();
-
+    if(Capacitor.isNativePlatform()) {
+      this.startPosition = await this.getCurrentPosition();
+      this.updateDistance();
+    } 
+    else {
+      this.gameService.setLevelCompleted(true);
+    }
   }
 
   getCurrentPosition = async () => {

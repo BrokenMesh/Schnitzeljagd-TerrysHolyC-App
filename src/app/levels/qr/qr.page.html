@@ -1,11 +1,7 @@
 <ion-content [fullscreen]="true">
    <app-level-shell>
-      <img src="assets/icon/camera.svg">
-   </app-level-shell>
-
-   @if (isCompleted() === false) {
+      <img src="assets/icon/camera.svg">+
       <p class="error-text">{{ errorMessage }}</p>
       <ion-button (click)="scan()">QR Reader starten</ion-button>
-   }
-
+   </app-level-shell>
 </ion-content>

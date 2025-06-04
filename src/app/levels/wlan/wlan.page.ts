@@ -6,6 +6,7 @@ import { LevelShellComponent } from "../level-shell/level-shell.component";
 import { GameService } from 'src/app/game.service';
 import { Network } from '@capacitor/network';
 import { ConnectionStatus } from '@capacitor/network';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-wlan',
@@ -21,11 +22,14 @@ export class WlanPage implements OnInit {
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   ngOnInit() {
-    Network.addListener('networkStatusChange', status => {
-      console.log(status)
-      this.checkWifi(status)
-    })
+    if(Capacitor.isNativePlatform()) {
+      Network.addListener('networkStatusChange', status => this.checkWifi(status))
+    } 
+    else {
+      this.gameService.setLevelCompleted(true);
+    }
   }
+
   checkWifi(status: ConnectionStatus) {
     if(!status.connected) {
       console.log("cock")
