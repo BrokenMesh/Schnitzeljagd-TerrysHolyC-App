@@ -64,10 +64,9 @@ export class DistancePage implements OnInit {
     } catch (e) {
       console.log(e)
     }
+    
     if (this.isCompleted() == false) {
-      setTimeout(async () => {
-        this.updateDistance();
-      }, 1000)
+      setTimeout(() => this.updateDistance(), 1000)
     }
   }
 }

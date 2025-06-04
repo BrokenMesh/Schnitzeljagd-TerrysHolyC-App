@@ -79,6 +79,8 @@ export class GameService {
 
     setLevelCompleted(value: boolean) {
         if (value === true) {
+            console.log("Level finished");
+
             this.state!.mainScore += 1;
             
             const l = this.getCurrentLevel();
