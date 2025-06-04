@@ -4,8 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
 import { LevelShellComponent } from '../level-shell/level-shell.component';
 import { addIcons } from 'ionicons';
-import { navigateOutline } from 'ionicons/icons';
+import { navigateOutline, trendingDown } from 'ionicons/icons';
 import { GameService } from 'src/app/game.service';
+import { Device } from '@capacitor/device';
 
 @Component({
   selector: 'app-device-status',
@@ -18,6 +19,19 @@ export class DeviceStatusPage implements OnInit {
   gameService = inject(GameService);
 
   ngOnInit() {
-    this.gameService.setLevelCompleted(true);
+    this.logChargingStatus()
+
+  }
+  logChargingStatus = async () => {
+    const info = await Device.getBatteryInfo();
+
+    if (info.isCharging) {
+      this.gameService.setLevelCompleted(true)
+    }
+
+    setInterval(() => {
+      this.logChargingStatus();
+    }, 2000);
+
   }
 }
