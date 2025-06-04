@@ -23,6 +23,5 @@ export class GeolocationPage implements OnInit {
   ngOnInit() {
     this.gameService.setLevelCompleted(true);
     addIcons({ navigateOutline })
-    
   }
 }
