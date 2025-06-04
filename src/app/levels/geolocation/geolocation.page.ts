@@ -22,6 +22,8 @@ export class GeolocationPage implements OnInit {
 
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
+  distance: number = 0;
+
   ngOnInit() {
     this.gameService.setLevelCompleted(true);
     addIcons({ navigateOutline })
@@ -44,6 +46,7 @@ export class GeolocationPage implements OnInit {
     }
 
     const d = getDistance(current.latitude, current.longitude, target.latitude, target.longitude)
+    this.distance = d;
 
     if (d <= 10) {
       this.gameService.setLevelCompleted(true)

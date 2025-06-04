@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -16,11 +16,12 @@ import { getDistance } from 'src/app/gps';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LevelShellComponent]
 })
 export class DistancePage implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
+  private gameService = inject(GameService)
 
   startPosition: { latitude: number; longitude: number } | null = null;
   distanceMoved: number = 0;
 
-  private gameService = inject(GameService)
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   async ngOnInit() {
@@ -55,6 +56,8 @@ export class DistancePage implements OnInit {
     if (distance >= 10) {
       this.gameService.setLevelCompleted(true)
     }
+
+    this.cdr.detectChanges();
 
     if (this.isCompleted() == false) {
       setTimeout(async () => {
