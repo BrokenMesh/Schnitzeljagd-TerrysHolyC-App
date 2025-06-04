@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { LevelShellComponent } from "../level-shell/level-shell.component";
+import { GameService } from 'src/app/game.service';
 
 @Component({
   selector: 'app-wlan',
@@ -12,10 +13,9 @@ import { LevelShellComponent } from "../level-shell/level-shell.component";
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LevelShellComponent]
 })
 export class WlanPage implements OnInit {
-
-  constructor() { }
+  gameService = inject(GameService);
 
   ngOnInit() {
+    this.gameService.setLevelCompleted(true);
   }
-
 }

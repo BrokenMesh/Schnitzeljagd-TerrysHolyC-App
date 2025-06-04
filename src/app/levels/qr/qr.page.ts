@@ -1,21 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent } from '@ionic/angular/standalone';
 import { LevelShellComponent } from '../level-shell/level-shell.component';
+import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
+import { GameService } from 'src/app/game.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-qr',
   templateUrl: './qr.page.html',
   styleUrls: ['./qr.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LevelShellComponent]
+  imports: [IonContent, CommonModule, FormsModule, LevelShellComponent]
 })
 export class QrPage implements OnInit {
-
-  constructor() { }
+  gameService = inject(GameService);
 
   ngOnInit() {
+    if(Capacitor.isNativePlatform()) {
+      this.scanLoop()
+    } 
+    else {
+      this.gameService.setLevelCompleted(true);
+    }
+  }
+
+  async scanLoop() {
+    while (this.gameService.state?.currentLevelCompleted == false) {
+      const config = {
+        hint: 0,
+        scanInstructions: "bitte korrekte QR Code scannen!",
+        cameraDirection: 1,
+        scanOrientation: 1,
+      };
+
+      const res = await CapacitorBarcodeScanner.scanBarcode(config);
+
+      if (res.ScanResult == "M335@ICT-BZ") {
+        this.gameService.setLevelCompleted(true);
+      }
+    }
   }
 
 }
