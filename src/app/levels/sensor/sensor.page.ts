@@ -28,18 +28,18 @@ export class SensorPage implements OnInit {
   }
 
   async startAcceleration() {
-    this.accelHandler = await Motion.addListener('accel', event => {
+    this.accelHandler = await Motion.addListener('accel', async event => {
       const z = event.acceleration?.z;
       if (z < -9) {
+        await this.stopAcceleration();
         this.gameService.setLevelCompleted(true);
-        this.stopAcceleration();
       }
     })
   }
 
-  stopAcceleration() {
+  async stopAcceleration() {
     if (this.accelHandler) {
-      this.accelHandler.remove();
+      await this.accelHandler.remove();
     }
   };
 }

@@ -30,7 +30,7 @@ export class DeviceStatusPage implements OnInit {
     }
   }
 
-  logChargingStatus = async () => {
+  async logChargingStatus() {
     const info = await Device.getBatteryInfo();
 
     if (info.isCharging) {
@@ -38,9 +38,8 @@ export class DeviceStatusPage implements OnInit {
     }
     
     if (this.isCompleted() == false) {
-      setTimeout(() => {
-        this.logChargingStatus();
-      }, 2000);
+      setTimeout(() => this.logChargingStatus(), 2000);
     }
+
   }
 }
