@@ -41,8 +41,8 @@ export class GeolocationPage implements OnInit {
     const current = await this.getCurrentPosition();
 
     const target = {
-        latitude: 47.027578850500234,
-        longitude:  8.300820734423015,
+      latitude: 47.02749804944801,
+      longitude: 8.300887115703024,
     }
 
     const d = getDistance(current.latitude, current.longitude, target.latitude, target.longitude)
