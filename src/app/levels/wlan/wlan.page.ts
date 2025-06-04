@@ -24,7 +24,7 @@ export class WlanPage implements OnInit {
     Network.addListener('networkStatusChange', status => {
       this.checkWifi(status)
     })
-    this.gameService.setLevelCompleted(true);
+    
   }
   checkWifi(status: ConnectionStatus) {
     if (status.connected) {
