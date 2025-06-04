@@ -24,7 +24,6 @@ export class WlanPage implements OnInit {
     Network.addListener('networkStatusChange', status => {
       this.checkWifi(status)
     })
-    
   }
   checkWifi(status: ConnectionStatus) {
     if (status.connected) {
