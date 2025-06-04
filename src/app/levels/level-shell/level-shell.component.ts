@@ -32,6 +32,7 @@ export class LevelShellComponent implements OnInit {
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   ngOnInit() {
+    this.isOvertime = false;
     this.levelName = this.gameService.getCurrentLevel().name;
     this.currentStep = this.gameService.state?.currentLevelIndex ?? 1;
     this.currentStep++;
