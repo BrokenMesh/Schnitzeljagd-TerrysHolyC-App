@@ -17,7 +17,7 @@ import { ConnectionStatus } from '@capacitor/network';
 export class WlanPage implements OnInit {
   private gameService = inject(GameService)
 
-  hasConnected?: boolean;
+  hasConnected?: boolean = false;
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class WlanPage implements OnInit {
     if (status.connected) {
       this.hasConnected == true;
     }
-    if (status.connectionType == 'wifi' && this.hasConnected) {
+    if (status.connectionType == 'wifi' && this.hasConnected === true) {
       this.gameService.setLevelCompleted(true)
     }
   }
