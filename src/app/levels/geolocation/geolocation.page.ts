@@ -25,8 +25,8 @@ export class GeolocationPage implements OnInit {
   distance: number = 0;
 
   ngOnInit() {
-    this.gameService.setLevelCompleted(true);
     addIcons({ navigateOutline })
+    this.updateDistance();
   }
 
   getCurrentPosition = async () => {
