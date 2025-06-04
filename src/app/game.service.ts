@@ -4,7 +4,6 @@ import { GameState, Level } from './models';
 import { Router } from '@angular/router';
 import { ApiService } from './api.service';
 import { Preferences } from '@capacitor/preferences';
-import { Observable } from 'rxjs';
 import * as uuid from 'uuid';
 
 @Injectable({

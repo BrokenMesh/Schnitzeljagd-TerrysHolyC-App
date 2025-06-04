@@ -22,7 +22,7 @@ export class DistancePage implements OnInit {
 
   startPosition: { latitude: number; longitude: number } | null = null;
   distanceMoved: number = 0;
-   private watchId: string | null = null;
+  private watchId: string | null = null;
 
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
@@ -56,7 +56,10 @@ export class DistancePage implements OnInit {
         return;
       }
 
-      if (!position || !this.startPosition) return;
+      if (!position || !this.startPosition) {
+        console.log(position, this.startPosition)
+        return;
+      }
 
       const current = {
         latitude: position.coords.latitude,
@@ -72,7 +75,8 @@ export class DistancePage implements OnInit {
 
       this.distanceMoved = distance;
 
-      if (distance >= 10 && !this.isCompleted()) {
+      if (distance >= 10) {
+        console.log(distance)
         this.gameService.setLevelCompleted(true);
         if (this.watchId !== null) {
           Geolocation.clearWatch({ id: this.watchId });
