@@ -44,7 +44,7 @@ export class DashboardPage implements OnInit {
   handleAlertData(data: any) {
     const name: string = data.name;
     if (name.trim().length > 0) {
-      this.router.navigateByUrl('/permissions?username=' + name.trim(), { replaceUrl: true });
+      this.router.navigateByUrl('/permissions?username=' + name.trim(), { skipLocationChange: true });
     }
   }
 
