@@ -32,6 +32,5 @@ export class DeviceStatusPage implements OnInit {
     setInterval(() => {
       this.logChargingStatus();
     }, 2000);
-
   }
 }
