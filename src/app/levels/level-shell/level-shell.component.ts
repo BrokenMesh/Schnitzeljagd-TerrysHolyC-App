@@ -21,11 +21,11 @@ export class LevelShellComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
 
   uID = 'main-content-' + Math.random().toString(36).substr(2, 9);
-
+  diffMs?: Date;
   buttonName: string = 'Weiter'
   levelName: string = '';
-
   levelTime: string = '00:00';
+  isOvertime: boolean = false;
 
   currentStep = 0;
 
@@ -45,14 +45,14 @@ export class LevelShellComponent implements OnInit {
   }
 
   onNext() {
-    if(this.gameService.lastLevel()) {
+    if (this.gameService.lastLevel()) {
       this.router.navigate(['scoreboard'])
       return;
     }
     this.gameService.nextLevel();
     const lvlRoute: any = this.gameService.getCurrentLevel().route;
     this.router.navigateByUrl(lvlRoute, { skipLocationChange: true });
-    
+
   }
 
   openMenu() {
@@ -63,12 +63,16 @@ export class LevelShellComponent implements OnInit {
     if (this.gameService.state != undefined) {
       const currenTime = new Date();
 
-      const diffMs = new Date(currenTime.getTime() - this.gameService.state!.currentLevelStartTime.getTime());
-      this.levelTime = diffMs.toISOString().slice(14, 19);
+      this.diffMs = new Date(currenTime.getTime() - this.gameService.state!.currentLevelStartTime.getTime());
+      this.levelTime = this.diffMs.toISOString().slice(14, 19);
 
       this.cdr.detectChanges();
-    }
 
+      if (this.gameService.getCurrentLevel().bonusTime_sec >= this.diffMs!.getSeconds()) {
+        this.isOvertime = true;
+      }
+    }
+    
     if (this.isCompleted() == false) {
       setTimeout(() => this.updateLevelTime(), 1000);
     }
