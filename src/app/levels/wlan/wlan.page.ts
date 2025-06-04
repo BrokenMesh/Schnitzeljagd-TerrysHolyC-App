@@ -12,12 +12,12 @@ import { ConnectionStatus } from '@capacitor/network';
   templateUrl: './wlan.page.html',
   styleUrls: ['./wlan.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LevelShellComponent]
+  imports: [IonContent, CommonModule, FormsModule, LevelShellComponent]
 })
 export class WlanPage implements OnInit {
   private gameService = inject(GameService)
 
-  hasConnected?: boolean = false;
+  hasDisconnected?: boolean = false;
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   ngOnInit() {
@@ -27,10 +27,12 @@ export class WlanPage implements OnInit {
     })
   }
   checkWifi(status: ConnectionStatus) {
-    if (status.connected) {
-      this.hasConnected == true;
+    if(!status.connected) {
+      console.log("cock")
+      this.hasDisconnected = true
     }
-    if (status.connectionType == 'wifi' && this.hasConnected === true) {
+    if (status.connectionType === 'wifi' && this.hasDisconnected === true) {
+      console.log("balls")
       this.gameService.setLevelCompleted(true)
     }
   }
