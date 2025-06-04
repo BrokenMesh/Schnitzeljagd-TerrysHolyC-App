@@ -19,8 +19,14 @@ export class MenuDrawerComponent {
 
   openMenu() {
     this.menu?.open();
+    console.log(this.gameService.state?.mainScore)
+    console.log(this.gameService.state?.bonusScore)
+    
     this.curMainscore = this.gameService.state!.mainScore;
     this.curBonusscore = this.gameService.state!.bonusScore;
+
+    console.log(this.curBonusscore)
+    console.log(this.curMainscore)
   }
 
   closeMenu() {
@@ -30,5 +36,8 @@ export class MenuDrawerComponent {
     this.gameService.nextLevel()
     const nxtLvl = this.gameService.getCurrentLevel().route
     this.router.navigate([nxtLvl])
+  }
+  quitGame(): void {
+    window.location.replace('/')
   }
 }
