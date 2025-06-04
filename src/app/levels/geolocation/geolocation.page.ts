@@ -14,7 +14,7 @@ import { getDistance } from 'src/app/gps';
   templateUrl: './geolocation.page.html',
   styleUrls: ['./geolocation.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LevelShellComponent, IonIcon]
+  imports: [CommonModule, FormsModule, LevelShellComponent, IonIcon]
 })
 export class GeolocationPage implements OnInit {
   gameService = inject(GameService);
@@ -41,8 +41,8 @@ export class GeolocationPage implements OnInit {
     const current = await this.getCurrentPosition();
 
     const target = {
-        latitude: 0,
-        longitude: 0,
+        latitude: 47.026667,
+        longitude: 8.301944,
     }
 
     const d = getDistance(current.latitude, current.longitude, target.latitude, target.longitude)

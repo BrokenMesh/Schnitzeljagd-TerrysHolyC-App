@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
@@ -18,19 +18,23 @@ import { Device } from '@capacitor/device';
 export class DeviceStatusPage implements OnInit {
   gameService = inject(GameService);
 
+  isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
+
   ngOnInit() {
     this.logChargingStatus()
-
   }
+
   logChargingStatus = async () => {
     const info = await Device.getBatteryInfo();
 
     if (info.isCharging) {
       this.gameService.setLevelCompleted(true)
     }
-
-    setInterval(() => {
-      this.logChargingStatus();
-    }, 2000);
+    
+    if (this.isCompleted() == false) {
+      setTimeout(() => {
+        this.logChargingStatus();
+      }, 2000);
+    }
   }
 }
