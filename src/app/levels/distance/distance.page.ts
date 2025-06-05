@@ -76,7 +76,7 @@ export class DistancePage implements OnInit {
 
         this.distanceMoved = distance;
 
-        if (distance >= 10) {
+        if (distance >= 30) {
           console.log(distance)
           this.gameService.setLevelCompleted(true);
           if (this.watchId !== null) {
