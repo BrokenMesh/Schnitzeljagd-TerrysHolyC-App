@@ -50,40 +50,44 @@ export class DistancePage implements OnInit {
   };
 
   async startWatchingPosition() {
-    this.watchId = await Geolocation.watchPosition({}, (position, err) => {
-      if (err) {
-        console.error('Error watching position:', err);
-        return;
-      }
-
-      if (!position || !this.startPosition) {
-        console.log(position, this.startPosition)
-        return;
-      }
-
-      const current = {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      };
-
-      const distance = getDistance(
-        this.startPosition.latitude,
-        this.startPosition.longitude,
-        current.latitude,
-        current.longitude
-      );
-
-      this.distanceMoved = distance;
-
-      if (distance >= 10) {
-        console.log(distance)
-        this.gameService.setLevelCompleted(true);
-        if (this.watchId !== null) {
-          Geolocation.clearWatch({ id: this.watchId });
+    try {
+      this.watchId = await Geolocation.watchPosition({}, (position, err) => {
+        if (err) {
+          console.error('Error watching position:', err);
+          return;
         }
-      }
 
-      this.cdr.detectChanges();
-    });
+        if (!position || !this.startPosition) {
+          console.log(position, this.startPosition)
+          return;
+        }
+
+        const current = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        };
+
+        const distance = getDistance(
+          this.startPosition.latitude,
+          this.startPosition.longitude,
+          current.latitude,
+          current.longitude
+        );
+
+        this.distanceMoved = distance;
+
+        if (distance >= 10) {
+          console.log(distance)
+          this.gameService.setLevelCompleted(true);
+          if (this.watchId !== null) {
+            Geolocation.clearWatch({ id: this.watchId });
+          }
+        }
+
+        this.cdr.detectChanges();
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
