@@ -35,6 +35,8 @@ export class MenuDrawerComponent {
   skipLevel(): void {
     if(this.gameService.isLastLevel()) {
       this.router.navigate(['scoreboard'])
+      this.gameService.endGame()
+      return;
     }
     this.gameService.startNextLevel()
     const nxtLvl = this.gameService.getCurrentLevel().route
