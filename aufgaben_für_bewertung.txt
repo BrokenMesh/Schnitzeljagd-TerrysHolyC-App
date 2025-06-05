@@ -1,0 +1,5 @@
+Aufgaben zur Bewertung:
+- QR
+- Gelocation
+- Device Status
+- WLAN 
