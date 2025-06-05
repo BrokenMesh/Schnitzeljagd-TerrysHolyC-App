@@ -87,7 +87,7 @@ export class GameService {
             const currenTime = new Date();
             const diffMs = (currenTime.getTime() - this.state!.currentLevelStartTime.getTime()) / 1000;
 
-            if (diffMs < l.bonusTime_sec) {
+            if (diffMs > l.bonusTime_sec) {
                 this.state!.bonusScore += 1;
             } 
         }
