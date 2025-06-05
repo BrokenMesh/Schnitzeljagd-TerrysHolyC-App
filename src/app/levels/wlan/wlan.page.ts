@@ -31,13 +31,14 @@ export class WlanPage implements OnInit {
   }
 
   checkWifi(status: ConnectionStatus) {
+    if (this.gameService.state!.currentLevelCompleted) return;
+
     if(!status.connected) {
-      console.log("cock")
       this.hasDisconnected = true
     }
     if (status.connectionType === 'wifi' && this.hasDisconnected === true) {
-      console.log("balls")
-      this.gameService.setLevelCompleted(true)
+      this.gameService.setLevelCompleted(true);
+      Network.removeAllListeners();
     }
   }
 }

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent} from '@ionic/angular/standalone';
 import { LevelShellComponent } from '../level-shell/level-shell.component';
 import { Geolocation } from '@capacitor/geolocation';
 import { GameService } from 'src/app/game.service';
@@ -14,7 +14,7 @@ import { Capacitor } from '@capacitor/core';
   templateUrl: './distance.page.html',
   styleUrls: ['./distance.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LevelShellComponent]
+  imports: [IonContent, CommonModule, FormsModule, LevelShellComponent]
 })
 export class DistancePage implements OnInit {
   private cdr = inject(ChangeDetectorRef);

@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
 import { LevelShellComponent } from '../level-shell/level-shell.component';
-import { addIcons } from 'ionicons';
-import { navigateOutline, trendingDown } from 'ionicons/icons';
 import { GameService } from 'src/app/game.service';
 import { Device } from '@capacitor/device';
 import { Capacitor } from '@capacitor/core';
@@ -18,7 +16,6 @@ import { Capacitor } from '@capacitor/core';
 })
 export class DeviceStatusPage implements OnInit {
   gameService = inject(GameService);
-
   isCompleted: Signal<boolean> = this.gameService.currentLevelCompleted;
 
   ngOnInit() {
@@ -40,6 +37,5 @@ export class DeviceStatusPage implements OnInit {
     if (this.isCompleted() == false) {
       setTimeout(() => this.logChargingStatus(), 2000);
     }
-
   }
 }

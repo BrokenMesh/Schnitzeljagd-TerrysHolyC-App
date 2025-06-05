@@ -1,18 +1,17 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, AlertController } from '@ionic/angular/standalone';
+import { IonContent, IonButton, AlertController } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
-import { GameService } from '../game.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton]
+  imports: [IonContent, CommonModule, FormsModule, IonButton]
 })
-export class DashboardPage implements OnInit {
+export class DashboardPage {
   private router = inject(Router);
   private alertController = inject(AlertController);
 
@@ -47,8 +46,4 @@ export class DashboardPage implements OnInit {
       this.router.navigateByUrl('/permissions?username=' + name.trim(), { skipLocationChange: true });
     }
   }
-
-  ngOnInit() {
-  }
-
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonMenu, IonList, IonItem, IonButton } from '@ionic/angular/standalone';
+import { Component, ViewChild, inject } from '@angular/core';
+import { IonContent, IonHeader, IonToolbar, IonMenu, IonButton } from '@ionic/angular/standalone';
 import { GameService } from '../game.service';
 import { Router } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   selector: 'app-menu-drawer',
   templateUrl: './menu-drawer.component.html',
   styleUrls: ['./menu-drawer.component.scss'],
-  imports: [IonContent, IonList, IonMenu, IonItem, IonHeader, IonToolbar, IonTitle, IonButton]
+  imports: [IonContent, IonMenu, IonHeader, IonToolbar, IonButton]
 })
 export class MenuDrawerComponent {
   @ViewChild(IonMenu) menu!: IonMenu;
@@ -19,14 +19,9 @@ export class MenuDrawerComponent {
 
   openMenu() {
     this.menu?.open();
-    console.log(this.gameService.state?.mainScore)
-    console.log(this.gameService.state?.bonusScore)
     
     this.curMainscore = this.gameService.state!.mainScore;
     this.curBonusscore = this.gameService.state!.bonusScore;
-
-    console.log(this.curBonusscore)
-    console.log(this.curMainscore)
   }
 
   closeMenu() {
