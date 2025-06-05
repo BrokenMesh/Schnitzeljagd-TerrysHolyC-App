@@ -21,7 +21,6 @@ export class LevelShellComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
 
   uID = 'main-content-' + Math.random().toString(36).substr(2, 9);
-  diffMs?: Date;
   buttonName: string = 'Weiter'
   levelName: string = '';
   levelTime: string = '00:00';
@@ -62,17 +61,16 @@ export class LevelShellComponent implements OnInit {
 
   updateLevelTime() {
     if (this.gameService.state != undefined) {
+      
       const currenTime = new Date();
+      const diffMs = currenTime.getTime() - this.gameService.state!.currentLevelStartTime.getTime();
+      this.levelTime = new Date(diffMs).toISOString().slice(14, 19);
 
-      this.diffMs = new Date(currenTime.getTime() - this.gameService.state!.currentLevelStartTime.getTime());
-      this.levelTime = this.diffMs.toISOString().slice(14, 19);
-
-      this.cdr.detectChanges();
-
-      if (this.gameService.getCurrentLevel().bonusTime_sec <= this.diffMs!.getSeconds()) {
-        console.log(this.diffMs.getSeconds())
+      if (this.gameService.getCurrentLevel().bonusTime_sec <= (diffMs / 1000)) {
         this.isOvertime = true;
       }
+
+      this.cdr.detectChanges();
     }
     
     if (this.isCompleted() == false) {
